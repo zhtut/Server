@@ -13,8 +13,8 @@ let package = Package(
         .package(url: "https://github.com/vapor/fluent-postgres-driver.git", from: "2.0.0"),
         .package(url: "https://github.com/vapor/leaf.git", from: "4.0.0"),
         .package(url: "https://github.com/zhtut/SSCommon.git", from: "1.0.0"),
-//        .package(path: "../../../Tools/CommonApi")
-        .package(url: "https://github.com/zhtut/CommonApi.git", from: "1.0.0"),
+        .package(path: "../../Tools/CommonApi")
+//        .package(url: "https://github.com/zhtut/CommonApi.git", from: "1.0.0"),
     ],
     targets: [
         .target(

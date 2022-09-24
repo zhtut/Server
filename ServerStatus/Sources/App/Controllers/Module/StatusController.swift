@@ -21,7 +21,7 @@ class StatusController: RouteCollection {
     func query(req: Request) async throws -> Status {
         let status = Status()
         let (_, string) = try await runCommand("/bin/ps -u ubuntu")
-        if let string = string,
+        if string.count > 0,
            string.contains("DatabaseTrader") {
             print("程序运行正常")
             status.status = .running

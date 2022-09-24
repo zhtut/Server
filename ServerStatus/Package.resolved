@@ -131,8 +131,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/zhtut/SSCommon.git",
       "state" : {
-        "revision" : "54184c7a2594f90b47415401227aef34c0968328",
-        "version" : "1.1.1"
+        "revision" : "72e1129d0dfec3fbffb682cbf242613c997d0e86",
+        "version" : "1.1.2"
       }
     },
     {

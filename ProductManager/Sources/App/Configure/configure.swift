@@ -21,11 +21,30 @@ public func configure(_ app: Application) throws {
             break
     }
     
+    // 配置基本信息
+    try configHttp(app)
+    
+    // 使用内存
+    app.sessions.use(.memory)
+
+    app.views.use(.leaf)
+    
+    // 配置中间件
+    try configMiddleware(app)
+    
+    // register migrations
+    try migrations(app)
+
+    // register routes
+    try routes(app)
+}
+
+func configHttp(_ app: Application) throws {
     // Add 'Server: vapor' header to responses.
     app.http.server.configuration.serverName = "ProductManager"
     
     // 支持的http版本，tls不支持的话，默认是http1，否则支持2个版本
-//    app.http.server.configuration.supportVersions = [.one, .two]
+    //    app.http.server.configuration.supportVersions = [.one, .two]
     
     // Configure custom port.
     app.http.server.configuration.port = 8080
@@ -41,13 +60,9 @@ public func configure(_ app: Application) throws {
     
     // Support HTTP pipelining.是否支持管道
     app.http.server.configuration.supportPipelining = true
-    
-    // sessions中间件
-    app.middleware.use(app.sessions.middleware)
-    
-    // 使用内存
-    app.sessions.use(.memory)
-    
+}
+
+func configMiddleware(_ app: Application) throws {
     // 跨域资源共享（Cross-origin resource sharing，缩写：CORS）
     let corsConfiguration = CORSMiddleware.Configuration(
         allowedOrigin: .all,
@@ -59,6 +74,9 @@ public func configure(_ app: Application) throws {
     app.middleware = .init()
     app.middleware.use(cors)
     
+    // sessions中间件
+    app.middleware.use(app.sessions.middleware)
+    
     // 错误
     let error = ErrorMiddleware.default(environment: app.environment)
     app.middleware.use(error)
@@ -66,12 +84,4 @@ public func configure(_ app: Application) throws {
     // 静态资源文件
     let file = FileMiddleware(publicDirectory: app.directory.publicDirectory)
     app.middleware.use(file)
-
-    app.views.use(.leaf)
-    
-    // register migrations
-    try migrations(app)
-
-    // register routes
-    try routes(app)
 }
