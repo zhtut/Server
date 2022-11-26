@@ -70,6 +70,8 @@ public func configure(_ app: Application) throws {
     // 清理null值
     let filterNull = FilterNullMiddleware()
     app.middleware.use(filterNull)
+    
+    app.logger.logLevel = .notice
 
     // leaf
     app.views.use(.leaf)

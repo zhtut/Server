@@ -29,4 +29,15 @@ final class AppTests: XCTestCase {
         let home = try await runCommand("/bin/ps -u tuguangzhou")
         print(home)
     }
+    
+    func testObject() {
+        let testObj = TestObject()
+        print(testObj._id)
+    }
+}
+
+class TestObject: NSObject {
+    public var _id: UUID {
+        return UUID()
+    }
 }

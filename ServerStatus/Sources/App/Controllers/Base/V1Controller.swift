@@ -12,6 +12,7 @@ class V1Controller: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         try routes.group("v1") { module in
             try module.register(collection: StatusController())
+            try module.register(collection: UserController())
         }
     }
 }

@@ -11,6 +11,8 @@ import Fluent
 func migrations(_ app: Application) throws {
     
     app.migrations.add(SessionRecord.migration)
+    app.migrations.add(User.Create())
+    app.migrations.add(UserToken.Create())
     
     // 添加migration
 //    app.migrations.add(Module.Create())
