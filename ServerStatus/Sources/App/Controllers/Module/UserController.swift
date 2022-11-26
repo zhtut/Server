@@ -26,6 +26,7 @@ class UserController: RouteCollection {
         // token的接口 /user/me  使用UserToken的ModelTokenAuthenticator来认证，使用Bearer的token来认证，由上面的登录接口返回的
         let tokenProtected = userRoute.grouped(UserToken.authenticator()).grouped(User.guardMiddleware())
         tokenProtected.get("me", use: query)
+        tokenProtected.post("refresh_token", use: refresh)
     }
     
     func query(req: Request) async throws -> User.Out {
@@ -53,5 +54,9 @@ class UserController: RouteCollection {
         let token = try user.generateToken()
         try await token.save(on: req.db)
         return token
+    }
+    
+    func refresh(req: Request) async throws -> UserToken {
+        try await login(req: req)
     }
 }
