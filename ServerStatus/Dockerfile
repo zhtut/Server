@@ -1,12 +1,12 @@
 # ================================
 # Build image
 # ================================
-FROM swift:5.6-focal as build
+FROM swift:5.7.2-jammy as build
 
 # Install OS updates and, if needed, sqlite3
 RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
     && apt-get -q update \
-    && apt-get -q dist-upgrade -y \
+    && apt-get -q dist-upgrade -y\
     && rm -rf /var/lib/apt/lists/*
 
 # Set up a build area
@@ -42,19 +42,30 @@ RUN [ -d /build/Resources ] && { mv /build/Resources ./Resources && chmod -R a-w
 # ================================
 # Run image
 # ================================
-FROM ubuntu:focal
+FROM ubuntu:jammy
 
 # Make sure all system packages are up to date, and install only essential packages.
 RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
     && apt-get -q update \
     && apt-get -q dist-upgrade -y \
     && apt-get -q install -y \
-      ca-certificates \
-      tzdata \
-# If your app or its dependencies import FoundationNetworking, also install `libcurl4`.
-      # libcurl4 \
-# If your app or its dependencies import FoundationXML, also install `libxml2`.
-      # libxml2 \
+       ca-certificates \
+       tzdata \
+       libcurl4 \
+       libxml2 \
+       binutils \
+       git \
+       gnupg2 \
+       libc6-dev \
+       libedit2 \
+       libgcc-9-dev \
+       libpython3.8 \
+       libsqlite3-0 \
+       libstdc++-9-dev \
+       libz3-dev \
+       pkg-config \
+       unzip \
+       zlib1g-dev \
     && rm -r /var/lib/apt/lists/*
 
 # Create a vapor user and group with /app as its home directory

@@ -9,6 +9,7 @@ import Foundation
 import FluentKit
 import Vapor
 import Fluent
+import SSCommon
 
 final class User: Model, Content {
     
@@ -93,11 +94,28 @@ extension User {
     // 生成一个UserToken
     func generateToken() throws -> UserToken {
         // 有效期一周
-        let duration = __tokenDuration
-        let exfired = Int(Date().timeIntervalSince1970) * 1000 + duration
+        let duration = HTTPServer.Configuration.tokenDuration
+        let exfired = Date.nowInterval + duration
         return try UserToken(
             value: UUID().uuidString.base64String(),
             exfired: exfired,
             userID: self.requireID())
     }
+}
+
+// 可session认证
+extension User: SessionAuthenticatable {
+    var sessionID: UUID {
+        return self.id!
+    }
+}
+
+// 添加ModelSession认证
+extension User: ModelSessionAuthenticatable {
+    
+}
+
+// 允许表单登录，上面有ModelAuthenticatable，这里不用做什么
+extension User: ModelCredentialsAuthenticatable {
+    
 }

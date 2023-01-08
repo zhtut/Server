@@ -20,11 +20,18 @@ class UserController: RouteCollection {
         userRoute.post("register", use: register)
         
         // 登录接口, /user/login 使用User的ModelAuthenticator来认证，使用Basic的token来认证，即用户名和密码
-        let passwordProtected = userRoute.grouped(User.authenticator())
+        let passwordProtected = userRoute.grouped([
+            User.authenticator(),
+            User.credentialsAuthenticator() // 表单登录
+            ])
         passwordProtected.post("login", use: login)
         
         // token的接口 /user/me  使用UserToken的ModelTokenAuthenticator来认证，使用Bearer的token来认证，由上面的登录接口返回的
-        let tokenProtected = userRoute.grouped(UserToken.authenticator()).grouped(User.guardMiddleware())
+        let tokenProtected = userRoute.grouped([
+            UserToken.authenticator(),
+            User.sessionAuthenticator(),
+            User.guardMiddleware()
+            ])
         tokenProtected.get("me", use: query)
         tokenProtected.post("refresh_token", use: refresh)
     }

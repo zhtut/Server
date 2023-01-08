@@ -12,7 +12,6 @@ let package = Package(
         .package(url: "https://github.com/vapor/fluent.git", from: "4.0.0"),
         .package(url: "https://github.com/vapor/fluent-postgres-driver.git", from: "2.0.0"),
         .package(url: "https://github.com/vapor/leaf.git", from: "4.0.0"),
-//        .package(path: "../../Tools/SSCommon"),
         .package(url: "https://github.com/zhtut/SSCommon.git", from: "1.0.0"),
         .package(url: "https://github.com/zhtut/CommonApi.git", from: "1.0.0"),
     ],
@@ -25,7 +24,7 @@ let package = Package(
                 .product(name: "Leaf", package: "leaf"),
                 .product(name: "Vapor", package: "vapor"),
                 "SSCommon",
-                "CommonApi",
+                "CommonApi"
             ],
             swiftSettings: [
                 // Enable better optimizations when building in Release configuration. Despite the use of
@@ -34,7 +33,7 @@ let package = Package(
                 .unsafeFlags(["-cross-module-optimization"], .when(configuration: .release))
             ]
         ),
-        .executableTarget(name: "ServerStatus", dependencies: [.target(name: "App")]),
+        .executableTarget(name: "Run", dependencies: [.target(name: "App")]),
         .testTarget(name: "AppTests", dependencies: [
             .target(name: "App"),
             .product(name: "XCTVapor", package: "vapor"),

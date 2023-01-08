@@ -13,6 +13,7 @@ class V1Controller: RouteCollection {
         try routes.group("v1") { module in
             try module.register(collection: StatusController())
             try module.register(collection: UserController())
+            try module.register(collection: AssetController())
         }
     }
 }

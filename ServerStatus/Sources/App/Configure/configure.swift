@@ -3,6 +3,11 @@ import FluentPostgresDriver
 import Leaf
 import Vapor
 
+extension HTTPServer.Configuration {
+    static var timestampDuration = 5 * 60 * 1000 // 接口请求有效期 5分钟
+    static var tokenDuration = 7 * 24 * 60 * 60 * 1000 // token有效期一周
+}
+
 // configures your application
 public func configure(_ app: Application) throws {
     // uncomment to serve files from /Public folder

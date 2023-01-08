@@ -19,6 +19,15 @@
       }
     },
     {
+      "identity" : "commonapi",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/zhtut/CommonApi.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "02f597c1d803dd2839b16673511f4f31071be1d2"
+      }
+    },
+    {
       "identity" : "console-kit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/vapor/console-kit.git",

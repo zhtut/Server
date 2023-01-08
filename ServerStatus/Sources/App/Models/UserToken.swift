@@ -9,9 +9,6 @@ import Vapor
 import Fluent
 import FluentKit
 
-/// token有效期，毫秒
-let __tokenDuration = 7 * 24 * 60 * 60 * 1000
-
 final class UserToken: Model, Content {
     
     static let schema: String = "user_tokens"
