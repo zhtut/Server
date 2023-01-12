@@ -76,6 +76,10 @@ public func configure(_ app: Application) throws {
     let filterNull = FilterNullMiddleware()
     app.middleware.use(filterNull)
     
+    // 签名
+    app.middleware.use(SigntureMiddleware())
+    
+    // log level
     app.logger.logLevel = .notice
 
     // leaf
